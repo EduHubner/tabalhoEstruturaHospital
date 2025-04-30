@@ -1,0 +1,84 @@
+@startuml
+
+Class Paciente {
+    -id : int
+    -nome : String
+    -sintomas : String
+    -nivelPrioridade : int
+    -tempoFila : int
+    
+    void triagem()
+}
+
+Class Medico {
+    -id : int
+    -nome : String
+    -especialidade : String
+    -escala : String
+}
+
+Class ListaMedico {
+    -limite : int
+    #inicio : Medico
+}
+note top: Lista para controle (cadastro/exclusão/consulta) de medicos
+
+Class FilaAtendimento {
+    -tamanho : int
+    -prioridade: int
+    #inicio : Paciente
+    #fim : Paciente
+}
+note top: Fila de pacientes
+
+Class SalaMedica {
+    -idSala : int
+    -ocupada : boolean
+}
+
+Class ListaSalaMedica {
+    -numeroDeSala : int
+    #inicio : SalaMedica
+}
+note top: Lista para controle (ver quais disponiveis) de salas
+
+Class Atendimento {
+    -idAtendimento : int
+    -tempoAtendimento : int
+    #salaUsada : SalaMedica
+    #medico : Medico
+    #paciente : Paciente
+}
+
+Class ListaAtendimento {
+    #inicio : Atendimento
+}
+
+Class PilhaPacienteObservacao {
+    -limite : int
+    -tamanho : int
+    #topo : Paciente
+}
+note top: Pilha de paciente em observacao
+
+Class Relatorio {
+    -tempoMedioPrioridade : int
+    -numeroDesistencia : int
+}
+note top: Pacientes atendido vem da ListaAtendidos, num em Observação vem da PilhaPacienteObservacao
+
+
+ListaMedico "1" *-- "*" Medico
+FilaAtendimento "1" *-- "*" Paciente
+Atendimento "*" *-- "1" Medico
+Atendimento "*" o-- "1" Paciente
+ListaSalaMedica "1" *-- SalaMedica
+PilhaPacienteObservacao o-- Paciente
+Relatorio ..> ListaAtendimento
+Relatorio ..> Paciente
+Relatorio ..> PilhaPacienteObservacao
+Atendimento "*" *-- "1" SalaMedica
+ListaAtendimento "1" *-- "*" Atendimento
+
+
+@enduml
