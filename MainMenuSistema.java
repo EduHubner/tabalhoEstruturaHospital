@@ -104,6 +104,10 @@ public class MainMenuSistema {
 	    
 	    listaAtendimento.atualizarTempo(pilhaPaciente);
 	    
+	    for(int j=0;j<5;j++) {
+	    	filas[j].passarTempoFila();
+	    }
+	    
 	    Random sorteio = new Random();
 		int sairDaObservacao = sorteio.nextInt(100) + 1;
 		if (sairDaObservacao <= 10) {

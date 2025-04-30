@@ -149,4 +149,14 @@ public class FilaAtendimento {
 
 	}
 	
+	public void passarTempoFila() {
+		Nodo<Paciente> aux = inicio;
+		
+		while (aux != null) {
+			aux.getObjeto().setTempoFila(aux.getObjeto().getTempoFila() + 15);
+			
+			aux = aux.getProx();
+		}
+	}
+	
 }
